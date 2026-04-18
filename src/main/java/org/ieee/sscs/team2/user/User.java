@@ -1,6 +1,9 @@
 package org.ieee.sscs.team2.user;
 
 import java.time.Instant;
+import java.util.UUID;
+import org.apache.commons.validator.routines.EmailValidator;
+
 import org.ieee.sscs.team2.Auditable;
 import org.ieee.sscs.team2.Authenticatable;
 import org.ieee.sscs.team2.Identifiable;
@@ -15,55 +18,72 @@ public class User implements Identifiable, Auditable, Authenticatable {
   private Instant createdAt;
 
   User(String fullName, String email, String phone, UserRole role) {
-    throw new UnsupportedOperationException("Unimplemented");
+    setFullName(fullName);
+    setEmail(email);
+    setPhone(phone);
+    this.role = role;
+    this.id = UUID.randomUUID().toString();
+    this.createdAt = Instant.now();
   }
 
   @Override
   public String getId() {
-    throw new UnsupportedOperationException("Unimplemented");
+    return this.id;
   }
 
   public String getEmail() {
-    throw new UnsupportedOperationException("Unimplemented");
+    return email;
   }
 
   public void setEmail(String email) {
-    throw new UnsupportedOperationException("Unimplemented");
+    if(EmailValidator.getInstance().isValid(email)){
+      throw new IllegalArgumentExceptio("Please Enter Valid Email address");
+    }
+    this.email = email;
   }
 
   public String getPhone() {
-    throw new UnsupportedOperationException("Unimplemented");
+    return phone;
   }
 
 
   public void setPhone(String phone) {
-    throw new UnsupportedOperationException("Unimplemented");
+    if(phone == null){
+      throw new IllegalArgumentException("Please enter Phone Number :");
+    }
+    this.phone = phone;
   }
 
   @Override
   public void setPassword(String rawPassword) {
-    throw new UnsupportedOperationException("Unimplemented");
+    passwordHashed = PasswordHashing.hashPassword(rawPassword);
   }
 
   @Override
   public boolean checkPassword(String rawPassword) {
-    throw new UnsupportedOperationException("Unimplemented");
+    if(PasswordHashing.hashPassword(rawPassword) == passwordHashed){
+      return true;
+    }
+    return false;
   }
 
   public String getFullName() {
-    throw new UnsupportedOperationException("Unimplemented");
+    return fullName;
   }
 
   public void setFullName(String fullName) {
-    throw new UnsupportedOperationException("Unimplemented");
+    if(fullName == null){
+      throw new IllegalArgumentException("Please enter Full Name :");
+    }
+    this.fullName = fullName;
   }
 
   public UserRole getRole() {
-    throw new UnsupportedOperationException("Unimplemented");
+    return role;
   }
 
   @Override
   public Instant getCreatedAt() {
-    throw new UnsupportedOperationException("Unimplemented");
+    return createdAt;
   }
 }
