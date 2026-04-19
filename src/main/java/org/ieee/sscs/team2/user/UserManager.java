@@ -8,18 +8,31 @@ import org.ieee.sscs.team2.rider.Rider;
 import org.ieee.sscs.team2.rider.RiderRepository;
 
 public class UserManager {
+  private static UserManager instance;
+
   private UserRepository userRepository;
   private RiderRepository riderRepository;
   private DriverRepository driverRepository;
 
-  public UserManager(UserRepository userRepository,
-      RiderRepository riderRepository, DriverRepository driverRepository) {
+  UserManager(UserRepository userRepository, RiderRepository riderRepository,
+      DriverRepository driverRepository) {
     this.userRepository = Objects.requireNonNull(userRepository,
         "User repository must not be null");
     this.riderRepository = Objects.requireNonNull(riderRepository,
         "Rider repository must not be null");
     this.driverRepository = Objects.requireNonNull(driverRepository,
         "Driver repository must not be null");
+  }
+
+  public static synchronized UserManager getInstance(
+      UserRepository userRepository, RiderRepository riderRepository,
+      DriverRepository driverRepository) {
+    if (instance == null) {
+      instance =
+          new UserManager(userRepository, riderRepository, driverRepository);
+    }
+
+    return instance;
   }
 
   public Rider registerRider(String fullName, String email, String phone,
