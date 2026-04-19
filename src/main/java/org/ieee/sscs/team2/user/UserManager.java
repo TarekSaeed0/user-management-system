@@ -24,6 +24,16 @@ public class UserManager {
 
   public Rider registerRider(String fullName, String email, String phone,
       String password) {
+    if (isEmailRegistered(email)) {
+      throw new IllegalArgumentException(
+          "Email " + email + " is already registered");
+    }
+
+    if (isPhoneRegistered(phone)) {
+      throw new IllegalArgumentException(
+          "Phone " + phone + " is already registered");
+    }
+
     Rider rider = new Rider(fullName, email, phone);
     rider.setPassword(password);
 
@@ -35,6 +45,16 @@ public class UserManager {
 
   public Driver registerDriver(String fullName, String email, String phone,
       String password, String licenseNumber) {
+    if (isEmailRegistered(email)) {
+      throw new IllegalArgumentException(
+          "Email " + email + " is already registered");
+    }
+
+    if (isPhoneRegistered(phone)) {
+      throw new IllegalArgumentException(
+          "Phone " + phone + " is already registered");
+    }
+
     Driver driver = new Driver(fullName, email, phone, licenseNumber);
     driver.setPassword(password);
 
