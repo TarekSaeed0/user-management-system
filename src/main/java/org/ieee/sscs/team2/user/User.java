@@ -1,6 +1,7 @@
 package org.ieee.sscs.team2.user;
 
 import java.time.Instant;
+
 import org.ieee.sscs.team2.Auditable;
 import org.ieee.sscs.team2.Authenticatable;
 import org.ieee.sscs.team2.Identifiable;
@@ -14,7 +15,7 @@ public class User implements Identifiable, Auditable, Authenticatable {
   private UserRole role;
   private Instant createdAt;
 
-  User(String fullName, String email, String phone, UserRole role) {
+  public User(String fullName, String email, String phone, UserRole role) {
     throw new UnsupportedOperationException("Unimplemented");
   }
 
