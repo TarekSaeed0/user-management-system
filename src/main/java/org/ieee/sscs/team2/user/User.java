@@ -1,4 +1,5 @@
 package org.ieee.sscs.team2.user;
+
 import java.time.Instant;
 import java.util.UUID;
 import org.apache.commons.validator.routines.EmailValidator;
@@ -35,7 +36,7 @@ public class User implements Identifiable, Auditable, Authenticatable {
   }
 
   public void setEmail(String email) {
-    if(EmailValidator.getInstance().isValid(email)){
+    if (EmailValidator.getInstance().isValid(email)) {
       throw new IllegalArgumentException("Please Enter Valid Email address");
     }
     this.email = email;
@@ -47,7 +48,7 @@ public class User implements Identifiable, Auditable, Authenticatable {
 
 
   public void setPhone(String phone) {
-    if(phone == null){
+    if (phone == null) {
       throw new IllegalArgumentException("Please enter Phone Number :");
     }
     this.phone = phone;
@@ -60,7 +61,7 @@ public class User implements Identifiable, Auditable, Authenticatable {
 
   @Override
   public boolean checkPassword(String rawPassword) {
-    if(PasswordHashing.hashPassword(rawPassword) == passwordHashed){
+    if (PasswordHashing.hashPassword(rawPassword) == passwordHashed) {
       return true;
     }
     return false;
@@ -71,7 +72,7 @@ public class User implements Identifiable, Auditable, Authenticatable {
   }
 
   public void setFullName(String fullName) {
-    if(fullName == null){
+    if (fullName == null) {
       throw new IllegalArgumentException("Please enter Full Name :");
     }
     this.fullName = fullName;
