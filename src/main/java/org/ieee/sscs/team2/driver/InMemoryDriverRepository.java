@@ -1,39 +1,62 @@
 package org.ieee.sscs.team2.driver;
 
 import java.util.List;
+import java.util.ArrayList;
 import java.util.Map;
+import java.util.HashMap;
 import org.ieee.sscs.team2.user.User;
 
 public class InMemoryDriverRepository implements DriverRepository {
-  private Map<String, User> database;
+  private Map<String, Driver> database=new HashMap<>();
 
   @Override
   public void save(Driver driver) {
-    throw new UnsupportedOperationException("Unimplemented");
+    database.put(driver.getDriverId(),driver);
   }
 
   @Override
   public Driver findById(String id) {
-    throw new UnsupportedOperationException("Unimplemented");
+    return this.database.get(id);
   }
 
   @Override
   public Driver findByUserId(String userId) {
-    throw new UnsupportedOperationException("Unimplemented");
+    for(Driver driver : database.values()){
+      if(userId.equals(driver.getId())){
+        return driver;
+      }
+    }
+    throw new UnsupportedOperationException("There is no user with this ID");
   }
 
   @Override
   public List<Driver> findAll() {
-    throw new UnsupportedOperationException("Unimplemented");
+    return new ArrayList<>(database.values());
   }
 
   @Override
   public List<Driver> findAvailable() {
-    throw new UnsupportedOperationException("Unimplemented");
+    List<Driver> availableDrivers=new ArrayList<>();
+    for(Driver driver:database.values()){
+      if(driver.isAvailable()==true){
+        availableDrivers.add(driver);
+      }
+    }
+    return availableDrivers;
   }
 
   @Override
   public List<Driver> findVerified() {
-    throw new UnsupportedOperationException("Unimplemented");
+    // List<Driver> verifiedDrivers=new ArrayList<>(); 
+    // for(Driver driver:drivers){
+    //   if(driver.isVerified()==true){
+    //     verifiedDrivers.add(driver);
+    //   }
+    // }
+    // return verifiedDrivers;
+    //since we suppose that all of the drivers are verified i commented the pecie of code above
+    //untill we use it or something similar to it 
+    return new ArrayList<Driver>(database.values());//i returned all of the drivers   
   }
+
 }

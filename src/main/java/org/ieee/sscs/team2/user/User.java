@@ -1,5 +1,4 @@
 package org.ieee.sscs.team2.user;
-
 import java.time.Instant;
 import org.ieee.sscs.team2.Auditable;
 import org.ieee.sscs.team2.Authenticatable;
