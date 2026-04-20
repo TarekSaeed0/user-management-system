@@ -1,6 +1,8 @@
 package org.ieee.sscs.team2.rider;
 
+import java.util.UUID;
 import org.ieee.sscs.team2.user.User;
+import org.ieee.sscs.team2.user.UserRole;
 
 public class Rider extends User {
   private String riderId;
@@ -8,28 +10,27 @@ public class Rider extends User {
   private double walletBalance;
   private int totalTrips;
 
-  Rider(String fullName, String email, String phone) {
-    throw new UnsupportedOperationException("Unimplemented");
-  }
-
-  @Override
-  public String getId() {
-    throw new UnsupportedOperationException("Unimplemented");
+  public Rider(String fullName, String email, String phone) {
+    super(fullName, email, phone, UserRole.RIDER);
+    this.riderId = UUID.randomUUID().toString();
+    this.userId = super.getId();
+    this.walletBalance = 0.0;
+    this.totalTrips = 0;
   }
 
   public String getRiderId() {
-    throw new UnsupportedOperationException("Unimplemented");
+    return riderId;
   }
 
   public String getUserId() {
-    throw new UnsupportedOperationException("Unimplemented");
+    return userId;
   }
 
   public double getWalletBalance() {
-    throw new UnsupportedOperationException("Unimplemented");
+    return walletBalance;
   }
 
   public int getTotalTrips() {
-    throw new UnsupportedOperationException("Unimplemented");
+    return totalTrips;
   }
 }

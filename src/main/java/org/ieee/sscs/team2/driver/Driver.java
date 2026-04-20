@@ -1,10 +1,10 @@
 package org.ieee.sscs.team2.driver;
-import org.ieee.sscs.team2.Identifiable;
+
 import org.ieee.sscs.team2.user.User;
 import org.ieee.sscs.team2.user.UserRole;
 import java.util.UUID;
 
-public class Driver extends User  {
+public class Driver extends User {
   private String driverId;
   private String userId;
   private double walletBalance;
@@ -12,25 +12,20 @@ public class Driver extends User  {
   private String licenseNumber;
   private double ratingAverage;
   private boolean isAvailable;
-  
-  public Driver(String fullName, String email, String phone, String licenseNumber) {
-    super(fullName,email,phone,UserRole.DRIVER);
+
+  public Driver(String fullName, String email, String phone,
+      String licenseNumber) {
+    super(fullName, email, phone, UserRole.DRIVER);
     this.driverId = UUID.randomUUID().toString();
-    this.userId=super.getId();
+    this.userId = super.getId();
     this.walletBalance = 0.0;
     this.totalTrips = 0;
-    if(licenseNumber!=null)
-    this.licenseNumber = licenseNumber;
-    else throw new UnsupportedOperationException("You must enter licenseNumber");
+    if (licenseNumber != null)
+      this.licenseNumber = licenseNumber;
+    else
+      throw new IllegalArgumentException("You must enter licenseNumber");
     this.ratingAverage = 0.0;
     this.isAvailable = false;
-}
-
-
-
-  @Override
-  public String getId() {
-    return this.userId;
   }
 
   public String getDriverId() {
@@ -62,12 +57,13 @@ public class Driver extends User  {
   }
 
   public void setAvailable(boolean available) {
-    this.isAvailable=available;  
+    this.isAvailable = available;
   }
 
   public void recordCompletedTrip(double newRatingScore) {
-    this.ratingAverage=(ratingAverage*totalTrips+newRatingScore)/(totalTrips+1);
+    this.ratingAverage =
+        (ratingAverage * totalTrips + newRatingScore) / (totalTrips + 1);
     this.totalTrips++;
   }
-  
+
 }
