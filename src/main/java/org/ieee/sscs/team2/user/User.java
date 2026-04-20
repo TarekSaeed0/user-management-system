@@ -36,7 +36,7 @@ public class User implements Identifiable, Auditable, Authenticatable {
   }
 
   public void setEmail(String email) {
-    if (EmailValidator.getInstance().isValid(email)) {
+    if (!EmailValidator.getInstance().isValid(email)) {
       throw new IllegalArgumentException("Please Enter Valid Email address");
     }
     this.email = email;
@@ -61,7 +61,7 @@ public class User implements Identifiable, Auditable, Authenticatable {
 
   @Override
   public boolean checkPassword(String rawPassword) {
-    if (PasswordHashing.hashPassword(rawPassword) == passwordHashed) {
+    if (PasswordHashing.hashPassword(rawPassword).equals(passwordHashed)) {
       return true;
     }
     return false;
