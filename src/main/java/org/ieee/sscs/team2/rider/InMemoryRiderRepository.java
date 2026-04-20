@@ -1,31 +1,42 @@
 package org.ieee.sscs.team2.rider;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import org.ieee.sscs.team2.user.User;
 
 public class InMemoryRiderRepository implements RiderRepository {
-  private Map<String, User> database;
+  private static InMemoryRiderRepository instance;
+
+  private Map<String, Rider> database = new HashMap<>();
+
+  InMemoryRiderRepository() {}
+
+  public static synchronized InMemoryRiderRepository getInstance() {
+    if (instance == null) {
+      instance = new InMemoryRiderRepository();
+    }
+
+    return instance;
+  }
 
   @Override
   public void save(Rider rider) {
-    this.database.put(rider.getId(), rider);
+    this.database.put(rider.getRiderId(), rider);
   }
 
   @Override
   public Rider findById(String id) {
-    return (Rider) this.database.get(id);
+    return this.database.get(id);
   }
 
   @Override
   public Rider findByUserId(String userId) {
-    for (Map.Entry<String, User> m : database.entrySet()) {
-        String key = m.getKey();
-        User val = m.getValue();
-        if (((Rider)val).getUserId().equals(userId)){
-          return (Rider) val;
-        }
+    for (Map.Entry<String, Rider> m : database.entrySet()) {
+      Rider val = m.getValue();
+      if (val.getUserId().equals(userId)) {
+        return val;
+      }
     }
     return null;
   }
@@ -33,10 +44,10 @@ public class InMemoryRiderRepository implements RiderRepository {
   @Override
   public List<Rider> getAll() {
     List<Rider> temp = new ArrayList<Rider>();
-    for (Map.Entry<String, User> m : database.entrySet()) {
-        User val = m.getValue();
-        temp.add((Rider) val);
-      }
-      return temp;
+    for (Map.Entry<String, Rider> m : database.entrySet()) {
+      Rider val = m.getValue();
+      temp.add(val);
+    }
+    return temp;
   }
 }
