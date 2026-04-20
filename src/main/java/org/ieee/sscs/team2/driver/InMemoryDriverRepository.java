@@ -4,14 +4,25 @@ import java.util.List;
 import java.util.ArrayList;
 import java.util.Map;
 import java.util.HashMap;
-import org.ieee.sscs.team2.user.User;
 
 public class InMemoryDriverRepository implements DriverRepository {
-  private Map<String, Driver> database=new HashMap<>();
+  private static InMemoryDriverRepository instance;
+
+  private Map<String, Driver> database = new HashMap<>();
+
+  InMemoryDriverRepository() {}
+
+  public static synchronized InMemoryDriverRepository getInstance() {
+    if (instance == null) {
+      instance = new InMemoryDriverRepository();
+    }
+
+    return instance;
+  }
 
   @Override
   public void save(Driver driver) {
-    database.put(driver.getDriverId(),driver);
+    database.put(driver.getDriverId(), driver);
   }
 
   @Override
@@ -21,12 +32,12 @@ public class InMemoryDriverRepository implements DriverRepository {
 
   @Override
   public Driver findByUserId(String userId) {
-    for(Driver driver : database.values()){
-      if(userId.equals(driver.getId())){
+    for (Driver driver : database.values()) {
+      if (userId.equals(driver.getUserId())) {
         return driver;
       }
     }
-    throw new UnsupportedOperationException("There is no user with this ID");
+    return null;
   }
 
   @Override
@@ -36,9 +47,9 @@ public class InMemoryDriverRepository implements DriverRepository {
 
   @Override
   public List<Driver> findAvailable() {
-    List<Driver> availableDrivers=new ArrayList<>();
-    for(Driver driver:database.values()){
-      if(driver.isAvailable()==true){
+    List<Driver> availableDrivers = new ArrayList<>();
+    for (Driver driver : database.values()) {
+      if (driver.isAvailable() == true) {
         availableDrivers.add(driver);
       }
     }
@@ -47,16 +58,18 @@ public class InMemoryDriverRepository implements DriverRepository {
 
   @Override
   public List<Driver> findVerified() {
-    // List<Driver> verifiedDrivers=new ArrayList<>(); 
+    // List<Driver> verifiedDrivers=new ArrayList<>();
     // for(Driver driver:drivers){
-    //   if(driver.isVerified()==true){
-    //     verifiedDrivers.add(driver);
-    //   }
+    // if(driver.isVerified()==true){
+    // verifiedDrivers.add(driver);
+    // }
     // }
     // return verifiedDrivers;
-    //since we suppose that all of the drivers are verified i commented the pecie of code above
-    //untill we use it or something similar to it 
-    return new ArrayList<Driver>(database.values());//i returned all of the drivers   
+    // since we suppose that all of the drivers are verified i commented the
+    // pecie of code above
+    // untill we use it or something similar to it
+    return new ArrayList<Driver>(database.values());// i returned all of the
+                                                    // drivers
   }
 
 }
