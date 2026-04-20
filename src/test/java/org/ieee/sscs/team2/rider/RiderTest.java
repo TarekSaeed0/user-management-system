@@ -22,6 +22,7 @@ public class RiderTest {
   @Test
   public void canCreateRiderWithValidArguments() {
     Rider rider = new Rider("John Doe", "john@domain.com", "123456789");
+
     assertEquals("John Doe", rider.getFullName());
     assertEquals("john@domain.com", rider.getEmail());
     assertEquals("123456789", rider.getPhone());
@@ -32,12 +33,14 @@ public class RiderTest {
   @Test
   public void RiderIdIsSetOnCreation() {
     Rider rider = new Rider("John Doe", "john@domain.com", "123456789");
+
     assertNotNull(rider.getRiderId());
   }
 
   @Test
   public void UserIdIsSetOnCreation() {
     Rider rider = new Rider("John Doe", "john@domain.com", "123456789");
+
     assertNotNull(rider.getUserId());
   }
 }

@@ -25,6 +25,7 @@ public class UserTest {
   public void canCreateUserWithValidArguments() {
     User user =
         new User("John Doe", "john@domain.com", "123456789", UserRole.DRIVER);
+
     assertEquals("John Doe", user.getFullName());
     assertEquals("john@domain.com", user.getEmail());
     assertEquals("123456789", user.getPhone());
@@ -35,6 +36,7 @@ public class UserTest {
   public void cantSetInvalidFullName() {
     User user =
         new User("John Doe", "john@domain.com", "123456789", UserRole.DRIVER);
+
     assertThrows(Exception.class, () -> user.setFullName(null));
   }
 
@@ -43,6 +45,7 @@ public class UserTest {
   public void canSetValidFullName() {
     User user =
         new User("John Doe", "john@domain.com", "123456789", UserRole.DRIVER);
+
     user.setFullName("Jane Doe");
     assertEquals("Jane Doe", user.getFullName());
   }
@@ -51,6 +54,7 @@ public class UserTest {
   public void cantSetInvalidEmail() {
     User user =
         new User("John Doe", "john@domain.com", "123456789", UserRole.DRIVER);
+
     assertThrows(Exception.class, () -> user.setEmail(null));
     assertThrows(Exception.class, () -> user.setEmail(""));
     assertThrows(Exception.class, () -> user.setEmail("john.com"));
@@ -60,6 +64,7 @@ public class UserTest {
   public void canSetValidEmail() {
     User user =
         new User("John Doe", "john@domain.com", "123456789", UserRole.DRIVER);
+
     user.setEmail("jane@domain.com");
     assertEquals("jane@domain.com", user.getEmail());
   }
@@ -68,6 +73,7 @@ public class UserTest {
   public void cantSetInvalidPhone() {
     User user =
         new User("John Doe", "john@domain.com", "123456789", UserRole.DRIVER);
+
     assertThrows(Exception.class, () -> user.setPhone(null));
   }
 
@@ -75,6 +81,7 @@ public class UserTest {
   public void canSetValidPhone() {
     User user =
         new User("John Doe", "john@domain.com", "123456789", UserRole.DRIVER);
+
     user.setPhone("987654321");
     assertEquals("987654321", user.getPhone());
   }
@@ -83,6 +90,7 @@ public class UserTest {
   public void cantSetInvalidPassword() {
     User user =
         new User("John Doe", "john@domain.com", "123456789", UserRole.DRIVER);
+
     assertThrows(Exception.class, () -> user.setPassword(null));
   }
 
@@ -90,6 +98,7 @@ public class UserTest {
   public void checkPasswordReturnsFalseForWrongPassword() {
     User user =
         new User("John Doe", "john@domain.com", "123456789", UserRole.DRIVER);
+
     user.setPassword("correct_password");
     assertFalse(user.checkPassword("wrong_password"));
   }
@@ -98,6 +107,7 @@ public class UserTest {
   public void checkPasswordReturnsTrueForCorrectPassword() {
     User user =
         new User("John Doe", "john@domain.com", "123456789", UserRole.DRIVER);
+
     user.setPassword("correct_password");
     assertTrue(user.checkPassword("correct_password"));
   }
@@ -106,6 +116,7 @@ public class UserTest {
   public void IdIsSetOnCreation() {
     User user =
         new User("John Doe", "john@domain.com", "123456789", UserRole.DRIVER);
+
     assertNotNull(user.getId());
   }
 
@@ -115,6 +126,7 @@ public class UserTest {
     User user =
         new User("John Doe", "john@domain.com", "123456789", UserRole.DRIVER);
     Instant afterCreation = Instant.now();
+
     assertTrue(user.getCreatedAt().isAfter(beforeCreation));
     assertTrue(user.getCreatedAt().isBefore(afterCreation));
   }
