@@ -37,7 +37,7 @@ public class User implements Identifiable, Auditable, Authenticatable {
 
   public void setEmail(String email) {
     if(EmailValidator.getInstance().isValid(email)){
-      throw new IllegalArgumentExceptio("Please Enter Valid Email address");
+      throw new IllegalArgumentException("Please Enter Valid Email address");
     }
     this.email = email;
   }
