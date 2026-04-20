@@ -1,5 +1,4 @@
 package org.ieee.sscs.team2.user;
-
 import java.time.Instant;
 import java.util.UUID;
 import org.apache.commons.validator.routines.EmailValidator;
@@ -17,7 +16,7 @@ public class User implements Identifiable, Auditable, Authenticatable {
   private UserRole role;
   private Instant createdAt;
 
-  User(String fullName, String email, String phone, UserRole role) {
+  public User(String fullName, String email, String phone, UserRole role) {
     setFullName(fullName);
     setEmail(email);
     setPhone(phone);

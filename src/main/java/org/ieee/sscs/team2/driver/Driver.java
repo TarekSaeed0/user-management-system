@@ -1,9 +1,10 @@
 package org.ieee.sscs.team2.driver;
-
 import org.ieee.sscs.team2.Identifiable;
 import org.ieee.sscs.team2.user.User;
+import org.ieee.sscs.team2.user.UserRole;
+import java.util.UUID;
 
-public class Driver extends User {
+public class Driver extends User  {
   private String driverId;
   private String userId;
   private double walletBalance;
@@ -11,50 +12,62 @@ public class Driver extends User {
   private String licenseNumber;
   private double ratingAverage;
   private boolean isAvailable;
+  
+  public Driver(String fullName, String email, String phone, String licenseNumber) {
+    super(fullName,email,phone,UserRole.DRIVER);
+    this.driverId = UUID.randomUUID().toString();
+    this.userId=super.getId();
+    this.walletBalance = 0.0;
+    this.totalTrips = 0;
+    if(licenseNumber!=null)
+    this.licenseNumber = licenseNumber;
+    else throw new UnsupportedOperationException("You must enter licenseNumber");
+    this.ratingAverage = 0.0;
+    this.isAvailable = false;
+}
 
-  Driver(String fullName, String email, String phone, String licenseNumber) {
-    throw new UnsupportedOperationException("Unimplemented");
-  }
+
 
   @Override
   public String getId() {
-    throw new UnsupportedOperationException("Unimplemented");
+    return this.userId;
   }
 
-
   public String getDriverId() {
-    throw new UnsupportedOperationException("Unimplemented");
+    return this.driverId;
   }
 
   public String getUserId() {
-    throw new UnsupportedOperationException("Unimplemented");
+    return this.userId;
   }
 
   public double getWalletBalance() {
-    throw new UnsupportedOperationException("Unimplemented");
+    return this.walletBalance;
   }
 
   public int getTotalTrips() {
-    throw new UnsupportedOperationException("Unimplemented");
+    return this.totalTrips;
   }
 
   public String getLicenseNumber() {
-    throw new UnsupportedOperationException("Unimplemented");
+    return this.licenseNumber;
   }
 
   public double getRatingAverage() {
-    throw new UnsupportedOperationException("Unimplemented");
+    return this.ratingAverage;
   }
 
   public boolean isAvailable() {
-    throw new UnsupportedOperationException("Unimplemented");
+    return this.isAvailable;
   }
 
   public void setAvailable(boolean available) {
-    throw new UnsupportedOperationException("Unimplemented");
+    this.isAvailable=available;  
   }
 
   public void recordCompletedTrip(double newRatingScore) {
-    throw new UnsupportedOperationException("Unimplemented");
+    this.ratingAverage=(ratingAverage*totalTrips+newRatingScore)/(totalTrips+1);
+    this.totalTrips++;
   }
+  
 }
